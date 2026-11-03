@@ -1,0 +1,36 @@
+# Окружение и секреты
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Node
+node_modules/
+dist/
+.vite/
+coverage/
+
+# Playwright
+playwright-report/
+test-results/
+blob-report/
+probe-report/
+
+# ОС и редакторы
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.tsbuildinfo
