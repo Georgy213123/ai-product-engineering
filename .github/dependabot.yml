@@ -1,0 +1,45 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly }
+  - package-ecosystem: uv
+    directory: /projects/01-sellerdesk/backend
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 3
+  - package-ecosystem: npm
+    directory: /projects/01-sellerdesk/frontend
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 3
+  - package-ecosystem: npm
+    directory: /projects/01-sellerdesk/e2e
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 3
+  - package-ecosystem: uv
+    directory: /projects/02-shopprobe/backend
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 3
+  - package-ecosystem: npm
+    directory: /projects/02-shopprobe/frontend
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 3
+  - package-ecosystem: npm
+    directory: /projects/02-shopprobe/e2e
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 3
+  - package-ecosystem: npm
+    directory: /projects/02-shopprobe/probe
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 3
+  - package-ecosystem: uv
+    directory: /projects/03-orderflow/backend
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 3
+  - package-ecosystem: npm
+    directory: /projects/03-orderflow/frontend
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 3
+  - package-ecosystem: npm
+    directory: /projects/03-orderflow/e2e
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 3
