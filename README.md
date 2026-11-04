@@ -24,6 +24,14 @@
 | 02 | [**ShopProbe**](projects/02-shopprobe/) | автоматическая приёмка интернет-витрины перед релизом | e2e и a11y на Playwright, перепроверка находок против ложных срабатываний, отчёт для владельца | Playwright · axe-core · FastAPI · React |
 | 03 | [**OrderFlow**](projects/03-orderflow/) | мастерская мебели на заказ: заявка → конструкция → смета | системный анализ (BPMN, use case, FR/NFR, user stories), расчёт в копейках, машина состояний | FastAPI · PostgreSQL · React · Playwright |
 
+<p>
+  <a href="projects/01-sellerdesk/"><img src="projects/01-sellerdesk/docs/img/chats-desktop.png" width="32%" alt="SellerDesk: лента чатов и AI-черновик"></a>
+  <a href="projects/02-shopprobe/"><img src="projects/02-shopprobe/docs/img/probe-report-desktop.png" width="32%" alt="ShopProbe: отчёт приёмки витрины"></a>
+  <a href="projects/03-orderflow/"><img src="projects/03-orderflow/docs/img/intake-sources-desktop.png" width="32%" alt="OrderFlow: заявка с источниками полей"></a>
+</p>
+
+Все кейсы пройдены по одной дороге:
+
 ```mermaid
 flowchart LR
     P[01 Постановка] --> A[02 Анализ<br/>BPMN · use case · FR/NFR · US]
@@ -71,7 +79,7 @@ make up                     # docker compose: PostgreSQL, API, фронт
 | Кейс | pytest (unit + integration) | покрытие бэкенда | Vitest | Playwright e2e |
 |---|---|---|---|---|
 | SellerDesk | 80 | 93 % | 14 | 12 |
-| ShopProbe | 39 | — | 22 витрина + 36 ShopProbe | 32: 20 проверок ShopProbe на фикстурах, 11 витрины, 1 мета-тест с посаженными дефектами |
+| ShopProbe | 39 | — | 22 витрина + 37 ShopProbe | 33: 21 проверка ShopProbe на фикстурах, 11 витрины, 1 мета-тест с посаженными дефектами |
 | OrderFlow | 82 | 97 % | 16 | 7 |
 
 Каждый кейс прошёл независимое ревью Codex. Все находки разобраны в `docs/04-ai-development.md`
