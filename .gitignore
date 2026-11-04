@@ -34,3 +34,6 @@ probe-report/
 .vscode/
 *.swp
 *.tsbuildinfo
+
+# Код кейсов живёт в их репозиториях, здесь остатки локальных прогонов
+projects/

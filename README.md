@@ -1,14 +1,13 @@
 # AI Product Engineering
 
 [![CI](https://github.com/Georgy213123/ai-product-engineering/actions/workflows/ci.yml/badge.svg)](https://github.com/Georgy213123/ai-product-engineering/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/Georgy213123/ai-product-engineering/actions/workflows/codeql.yml/badge.svg)](https://github.com/Georgy213123/ai-product-engineering/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Три продуктовых кейса. Каждый пройден целиком: постановка задачи, системный анализ,
-проектирование, разработка с AI-агентами, тестирование, разбор багов и релиз.
-У каждого рабочий код, свои тесты и e2e на Playwright.
+Три продуктовых кейса и процесс, по которому они сделаны. Каждый кейс пройден целиком:
+постановка задачи, системный анализ, проектирование, разработка с AI-агентами, тестирование,
+разбор багов и релиз. У каждого свой репозиторий, рабочий код, тесты, e2e на Playwright и CI.
 
-Георгий Андреев, Product Engineer. Код здесь писал Claude Code по моим брифам, ревьюил Codex.
+Георгий Андреев, Product Engineer. Код писал Claude Code по моим брифам, ревьюил Codex.
 Моя часть работы: постановка, решения (ADR), приёмка результата и разбор каждой находки ревью.
 Как это устроено, описано в [`ai-workflow/`](ai-workflow/).
 
@@ -19,17 +18,20 @@
 
 ## Кейсы
 
-| | Кейс | Задача | Что показывает | Стек |
+| | Кейс | Задача | Что показывает | CI |
 |---|---|---|---|---|
-| 01 | [**SellerDesk**](projects/01-sellerdesk/) | рабочее место оператора продавца на трёх маркетплейсах: чаты, отзывы, AI-черновики, шаблоны | интеграция с внешними API через адаптеры, фоновая синхронизация, идемпотентность, LLM без риска отправить лишнее | FastAPI · PostgreSQL · React · Playwright |
-| 02 | [**ShopProbe**](projects/02-shopprobe/) | автоматическая приёмка интернет-витрины перед релизом | e2e и a11y на Playwright, перепроверка находок против ложных срабатываний, отчёт для владельца | Playwright · axe-core · FastAPI · React |
-| 03 | [**OrderFlow**](projects/03-orderflow/) | мастерская мебели на заказ: заявка → конструкция → смета | системный анализ (BPMN, use case, FR/NFR, user stories), расчёт в копейках, машина состояний | FastAPI · PostgreSQL · React · Playwright |
+| 01 | [**SellerDesk**](https://github.com/Georgy213123/sellerdesk) | рабочее место оператора продавца на трёх маркетплейсах: чаты, отзывы, AI-черновики, шаблоны | интеграция с внешними API через адаптеры, фоновая синхронизация, идемпотентность, LLM без риска отправить лишнее | [![CI](https://github.com/Georgy213123/sellerdesk/actions/workflows/ci.yml/badge.svg)](https://github.com/Georgy213123/sellerdesk/actions/workflows/ci.yml) |
+| 02 | [**ShopProbe**](https://github.com/Georgy213123/shopprobe) | автоматическая приёмка интернет-витрины перед релизом | e2e и a11y на Playwright, перепроверка находок против ложных срабатываний, отчёт для владельца | [![CI](https://github.com/Georgy213123/shopprobe/actions/workflows/ci.yml/badge.svg)](https://github.com/Georgy213123/shopprobe/actions/workflows/ci.yml) |
+| 03 | [**OrderFlow**](https://github.com/Georgy213123/orderflow) | мастерская мебели на заказ: заявка → конструкция → смета | системный анализ (BPMN, use case, FR/NFR, user stories), расчёт в копейках, машина состояний | [![CI](https://github.com/Georgy213123/orderflow/actions/workflows/ci.yml/badge.svg)](https://github.com/Georgy213123/orderflow/actions/workflows/ci.yml) |
 
 <p>
-  <a href="projects/01-sellerdesk/"><img src="projects/01-sellerdesk/docs/img/chats-desktop.png" width="32%" alt="SellerDesk: лента чатов и AI-черновик"></a>
-  <a href="projects/02-shopprobe/"><img src="projects/02-shopprobe/docs/img/probe-report-desktop.png" width="32%" alt="ShopProbe: отчёт приёмки витрины"></a>
-  <a href="projects/03-orderflow/"><img src="projects/03-orderflow/docs/img/intake-sources-desktop.png" width="32%" alt="OrderFlow: заявка с источниками полей"></a>
+  <a href="https://github.com/Georgy213123/sellerdesk"><img src="https://github.com/Georgy213123/sellerdesk/raw/main/docs/img/chats-desktop.png" width="32%" alt="SellerDesk: лента чатов и AI-черновик"></a>
+  <a href="https://github.com/Georgy213123/shopprobe"><img src="https://github.com/Georgy213123/shopprobe/raw/main/docs/img/probe-report-desktop.png" width="32%" alt="ShopProbe: отчёт приёмки витрины"></a>
+  <a href="https://github.com/Georgy213123/orderflow"><img src="https://github.com/Georgy213123/orderflow/raw/main/docs/img/intake-sources-desktop.png" width="32%" alt="OrderFlow: заявка с источниками полей"></a>
 </p>
+
+Стек у всех трёх общий: Python 3.12, FastAPI, SQLAlchemy 2, PostgreSQL 16, React + TypeScript (Vite),
+Playwright, Docker Compose, GitHub Actions.
 
 Все кейсы пройдены по одной дороге:
 
@@ -43,15 +45,14 @@ flowchart LR
     B --> R[07 Релизы<br/>MVP → v1 · CHANGELOG]
 ```
 
-Документация во всех кейсах лежит по одному канону: [docs/CASE_STRUCTURE.md](docs/CASE_STRUCTURE.md).
+Документация в каждом кейсе лежит по одному канону: [docs/CASE_STRUCTURE.md](docs/CASE_STRUCTURE.md).
 
-## Как появился этот репозиторий
+## Как появились кейсы
 
-Витрину я собрал за два дня, 3 и 4 ноября 2026 года, к собеседованию. История коммитов
-настоящая и поэтому короткая: месяцы разработки в ней не изображаются. Версии в CHANGELOG
-кейсов — это этапы этих двух дней: MVP, исправления по ревью, второй круг ревью. Темп сборки
-сам по себе часть демонстрации: так выглядит MVP с агентами, когда результат проверяется,
-а не принимается на веру.
+Витрину я собрал за два дня, 3 и 4 ноября 2026 года, к собеседованию. Сначала все три кейса
+жили в одном репозитории, потом я разнёс их по отдельным, сохранив историю коммитов. Поэтому
+история настоящая и короткая: месяцы разработки в ней не изображаются. Версии в CHANGELOG
+кейсов — это этапы этих двух дней: MVP, исправления по ревью, второй круг ревью.
 
 ## Где AI ошибался и как это поймали
 
@@ -66,29 +67,29 @@ flowchart LR
   ([разбор](ai-workflow/examples/task-walkthrough.md)).
 - **Продукт пропускал то, ради чего существует.** ShopProbe под дев-сервером Vite молча
   отбрасывал ошибки консоли приложения. Поймал, когда сверил скриншот отчёта с мета-тестом
-  (BUG-09 в [06-bugs](projects/02-shopprobe/docs/06-bugs.md)).
+  (BUG-09 в [06-bugs](https://github.com/Georgy213123/shopprobe/blob/main/docs/06-bugs.md)).
 - **Тесты не видят того, что видно глазами.** Свежий просмотр скриншотов (отдельный агент
   в роли техлида, без нашего контекста) нашёл два бага интерфейса, мимо которых прошли все
   тесты: разные статусы чата в ленте и в карточке, сырые дроби в смете. Оба исправлены
-  с регрессионными тестами (BUG-11 в [SellerDesk](projects/01-sellerdesk/docs/06-bugs.md)
-  и [OrderFlow](projects/03-orderflow/docs/06-bugs.md)).
+  с регрессионными тестами (BUG-11 в [SellerDesk](https://github.com/Georgy213123/sellerdesk/blob/main/docs/06-bugs.md)
+  и [OrderFlow](https://github.com/Georgy213123/orderflow/blob/main/docs/06-bugs.md)).
 
 ## С чего начать
 
 | Если есть 2 минуты | Если есть 15 минут |
 |---|---|
-| README любого кейса: задача, карта модулей, запуск | `docs/02-analysis/` кейса 03 — анализ без готового ТЗ |
-| [ai-workflow/README.md](ai-workflow/README.md) — как идёт работа с агентами | `docs/04-ai-development.md` кейса 01 — настоящее ревью Codex и что по нему исправлено |
+| README любого кейса: задача, скриншоты, карта модулей, запуск | `docs/02-analysis/` в [OrderFlow](https://github.com/Georgy213123/orderflow/tree/main/docs/02-analysis) — анализ без готового ТЗ |
+| [ai-workflow/README.md](ai-workflow/README.md) — как идёт работа с агентами | `docs/04-ai-development.md` в [SellerDesk](https://github.com/Georgy213123/sellerdesk/blob/main/docs/04-ai-development.md) — настоящее ревью Codex и что по нему исправлено |
 | | `docs/06-bugs.md` любого кейса — баги с регрессионными тестами |
 
-## Запуск
+## Запуск кейса
 
 ```bash
-cd projects/01-sellerdesk   # или 02-shopprobe, 03-orderflow
-make install && make dev    # Python 3.12 + uv, Node.js 24, PostgreSQL 16
+git clone https://github.com/Georgy213123/sellerdesk && cd sellerdesk   # или shopprobe, orderflow
+make up                     # Docker: PostgreSQL, API, фронт
+make install && make dev    # без Docker: Python 3.12 + uv, Node.js 24, PostgreSQL 16
 ```
 
-Через Docker: `make up` (`docker compose up`, PostgreSQL, API, фронт).
 Проверки во всех кейсах одинаковые: `make lint`, `make test`, `make e2e`, `make audit`.
 
 ## Качество
@@ -100,6 +101,7 @@ make install && make dev    # Python 3.12 + uv, Node.js 24, PostgreSQL 16
 | E2E на Playwright, десктоп 1440×900 и телефон 390×844 | `make e2e`, CI |
 | Контракт API: `openapi.yaml` сверяется с кодом тестом | `make test` |
 | Аудит зависимостей (pip-audit, npm audit) | `make audit`, CI |
+| Стенд одной командой (`docker compose up --wait`) | CI |
 | Поиск секретов по всей истории (gitleaks), CodeQL, Dependabot | CI, pre-commit |
 | Conventional Commits | pre-commit, CI на PR |
 
@@ -114,13 +116,12 @@ make install && make dev    # Python 3.12 + uv, Node.js 24, PostgreSQL 16
 Каждый кейс прошёл независимое ревью Codex. Все находки разобраны в `docs/04-ai-development.md`
 кейса: подтверждена ли находка тестом и что с ней сделано.
 
-## Репозиторий
+## Что в этом репозитории
 
 ```
-projects/        три кейса, у каждого свои README, Makefile, docker-compose, docs/01…07
-ai-workflow/     CLAUDE.md, агенты, команды, skills, Playwright MCP, правила ревью
+ai-workflow/     CLAUDE.md, агенты, команды, skills, Playwright MCP, хук против секретов, правила ревью
 docs/            канон оформления кейса
-.github/         CI, CodeQL, Dependabot, шаблоны issue и PR
+.github/         CI (gitleaks, проверка хука), Dependabot, шаблоны issue и PR
 ```
 
 [CONTRIBUTING.md](CONTRIBUTING.md) · [SECURITY.md](SECURITY.md) · [LICENSE](LICENSE)

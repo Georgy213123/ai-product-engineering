@@ -13,10 +13,6 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  PYTHON_VERSION: "3.12"
-  NODE_VERSION: "24"
-
 jobs:
   secrets:
     name: Поиск секретов (gitleaks, вся история)
@@ -48,107 +44,12 @@ jobs:
           done < <(git log --format='%h %s' origin/${{ github.base_ref }}..HEAD --no-merges)
           exit $bad
 
-  project:
-    name: ${{ matrix.project }} — lint, тесты, e2e
+  hook:
+    name: Хук против секретов (shellcheck и тесты)
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        project: [01-sellerdesk, 02-shopprobe, 03-orderflow]
-    defaults:
-      run:
-        working-directory: projects/${{ matrix.project }}
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: app
-        ports: ["5432:5432"]
-        options: >-
-          --health-cmd "pg_isready -U postgres"
-          --health-interval 5s --health-timeout 5s --health-retries 10
-    env:
-      CI: "1"
-      DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/app
-      TEST_DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/app_test
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          enable-cache: true
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-          cache-dependency-path: projects/${{ matrix.project }}/**/package-lock.json
-      - name: База для тестов
-        run: PGPASSWORD=postgres psql -h localhost -U postgres -c "CREATE DATABASE app_test"
-      - name: Зависимости
-        run: make install
-      - name: Линтеры и типы
-        run: make lint
-      - name: Unit и интеграционные тесты
-        run: make test
-      - name: E2E (Playwright)
-        run: make e2e
-      - name: Отчёт Playwright
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report-${{ matrix.project }}
-          path: |
-            projects/${{ matrix.project }}/e2e/playwright-report/
-            projects/${{ matrix.project }}/e2e/playwright-report-seeded/
-            projects/${{ matrix.project }}/probe/reports/
-          retention-days: 7
-
-  audit:
-    name: ${{ matrix.project }} — аудит зависимостей
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        project: [01-sellerdesk, 02-shopprobe, 03-orderflow]
-    defaults:
-      run:
-        working-directory: projects/${{ matrix.project }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Зависимости без браузеров
-        run: |
-          (cd backend && uv sync --frozen)
-          for d in frontend e2e probe; do [ -f "$d/package-lock.json" ] && (cd "$d" && npm ci --ignore-scripts); done
-      - name: pip-audit и npm audit
-        run: make audit
-
-  compose:
-    name: ${{ matrix.project }} — docker compose
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        project: [01-sellerdesk, 02-shopprobe, 03-orderflow]
-    defaults:
-      run:
-        working-directory: projects/${{ matrix.project }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Стенд одной командой
-        run: docker compose up --build --detach --wait --wait-timeout 300
-      - name: Состояние сервисов
-        run: docker compose ps
-      - name: Логи при падении
-        if: failure()
-        run: docker compose logs --no-color
-      - name: Остановить
-        if: always()
-        run: docker compose down -v
+      - name: shellcheck
+        run: shellcheck ai-workflow/hooks/block-secrets.sh ai-workflow/hooks/tests/block-secrets.test.sh
+      - name: Тесты хука
+        run: bash ai-workflow/hooks/tests/block-secrets.test.sh

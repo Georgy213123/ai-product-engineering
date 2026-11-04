@@ -2,7 +2,7 @@
 
 Пример из кейса SellerDesk. Всё описанное здесь действительно происходило при сборке
 репозитория. Отчёты ревьюера пересказаны близко к тексту, тесты лежат в коде.
-Полные таблицы — в [projects/01-sellerdesk/docs/04-ai-development.md](../../projects/01-sellerdesk/docs/04-ai-development.md).
+Полные таблицы — в [sellerdesk/docs/04-ai-development.md](https://github.com/Georgy213123/sellerdesk/blob/main/docs/04-ai-development.md).
 
 ## 1. Находка
 
@@ -63,7 +63,7 @@
   5 из 5 красные.
 
 Для каждого пункта я откатывал исправление и смотрел, что тест падает именно по описанной
-причине. Тесты лежат в `backend/tests/integration/test_review_findings.py` и `test_migrations.py`.
+причине. Тесты лежат в репозитории SellerDesk: [`test_review_findings.py`](https://github.com/Georgy213123/sellerdesk/blob/main/backend/tests/integration/test_review_findings.py) и [`test_migrations.py`](https://github.com/Georgy213123/sellerdesk/blob/main/backend/tests/integration/test_migrations.py).
 
 ## 6. Что из этого следует
 

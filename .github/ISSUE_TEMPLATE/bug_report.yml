@@ -6,7 +6,7 @@ body:
     id: project
     attributes:
       label: Проект
-      options: [sellerdesk, shopprobe, orderflow, ai-workflow, репозиторий]
+      options: [ai-workflow, документация, репозиторий]
     validations:
       required: true
   - type: textarea
