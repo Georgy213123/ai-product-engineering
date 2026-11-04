@@ -18,7 +18,7 @@ jobs:
     name: Поиск секретов (gitleaks, вся история)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: gitleaks
@@ -32,7 +32,7 @@ jobs:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Проверка сообщений коммитов PR
@@ -48,7 +48,7 @@ jobs:
     name: Хук против секретов (shellcheck и тесты)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: shellcheck
         run: shellcheck ai-workflow/hooks/block-secrets.sh ai-workflow/hooks/tests/block-secrets.test.sh
       - name: Тесты хука
