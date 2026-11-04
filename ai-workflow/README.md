@@ -5,7 +5,8 @@
 Playwright MCP и правила ревью. Файлы рабочие. Установка в свой проект: `agents/`,
 `commands/` и `skills/` скопировать в `.claude/`, `CLAUDE.md` — в корень,
 `settings.example.json` — в `.claude/settings.json`, хук — в `.claude/hooks/block-secrets.sh`
-(путь в настройках уже такой).
+(путь в настройках уже такой). Так они и установлены в
+[SellerDesk](https://github.com/Georgy213123/sellerdesk): `CLAUDE.md`, `.claude/`, `.mcp.json`.
 
 ## Роли
 
@@ -50,7 +51,7 @@ flowchart LR
 ## Правила, которые появились из ошибок
 
 - [**Пустой ответ ревьюера — не одобрение**](rules/empty-review-is-not-approval.md).
-- [**Отчёт агента — гипотеза, а не факт**](rules/agent-report-is-a-hypothesis.md):
+- [**Отчёт агента — это гипотеза**](rules/agent-report-is-a-hypothesis.md):
   число попадает в отчёт только после моего замера.
 - **Секреты агенту не показываем.** Главное — секретов нет в рабочей копии агента. Поверх этого
   deny-правила и хук на команды Bash ([settings.example.json](settings.example.json),
