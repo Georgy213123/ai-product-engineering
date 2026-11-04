@@ -20,7 +20,7 @@
 
 | | Кейс | Задача | Что показывает | CI |
 |---|---|---|---|---|
-| 01 | [**SellerDesk**](https://github.com/Georgy213123/sellerdesk) | рабочее место оператора продавца на трёх маркетплейсах: чаты, отзывы, AI-черновики, шаблоны | интеграция с внешними API через адаптеры, фоновая синхронизация, идемпотентность, LLM без риска отправить лишнее | [![CI](https://github.com/Georgy213123/sellerdesk/actions/workflows/ci.yml/badge.svg)](https://github.com/Georgy213123/sellerdesk/actions/workflows/ci.yml) |
+| 01 | [**SellerDesk**](https://github.com/Georgy213123/sellerdesk) | рабочее место оператора продавца на трёх маркетплейсах: чаты, отзывы, AI-черновики, шаблоны | интеграция с внешними API через адаптеры, фоновая синхронизация, идемпотентность, Claude API; автономный агент с чекпоинтом и бюджетом токенов | [![CI](https://github.com/Georgy213123/sellerdesk/actions/workflows/ci.yml/badge.svg)](https://github.com/Georgy213123/sellerdesk/actions/workflows/ci.yml) |
 | 02 | [**ShopProbe**](https://github.com/Georgy213123/shopprobe) | автоматическая приёмка интернет-витрины перед релизом | e2e и a11y на Playwright, перепроверка находок против ложных срабатываний, отчёт для владельца | [![CI](https://github.com/Georgy213123/shopprobe/actions/workflows/ci.yml/badge.svg)](https://github.com/Georgy213123/shopprobe/actions/workflows/ci.yml) |
 | 03 | [**OrderFlow**](https://github.com/Georgy213123/orderflow) | мастерская мебели на заказ: заявка → конструкция → смета | системный анализ (BPMN, use case, FR/NFR, user stories), расчёт в копейках, машина состояний | [![CI](https://github.com/Georgy213123/orderflow/actions/workflows/ci.yml/badge.svg)](https://github.com/Georgy213123/orderflow/actions/workflows/ci.yml) |
 
@@ -71,6 +71,11 @@ flowchart LR
   ([разбор](ai-workflow/examples/task-walkthrough.md)). Последнюю находку, отправку
   неподставленного шаблона, я провёл отдельными коммитами «красный тест → фикс», их можно
   проверить по истории SellerDesk (BUG-13).
+- **Автономный агент ломается на долгом прогоне.** В агенте-маркетологе SellerDesk Codex нашёл
+  9 проблем, которых не видно на коротком прогоне: ответ модели, потерянный при падении,
+  не списывался из бюджета, временная ошибка убивала прогон, телефон с точками уходил
+  в модель без маски. Исправлены до первого коммита модуля, у каждой тест
+  ([ревью, круг 3](https://github.com/Georgy213123/sellerdesk/blob/main/docs/04-ai-development.md)).
 - **Продукт пропускал то, ради чего существует.** ShopProbe под дев-сервером Vite молча
   отбрасывал ошибки консоли приложения. Поймал, когда сверил скриншот отчёта с мета-тестом
   (BUG-09 в [06-bugs](https://github.com/Georgy213123/shopprobe/blob/main/docs/06-bugs.md)).
@@ -122,7 +127,7 @@ make install && make dev    # без Docker: Python 3.12 + uv, Node.js 24, Postg
 
 | Кейс | pytest (unit + integration) | покрытие бэкенда | Vitest | Playwright e2e |
 |---|---|---|---|---|
-| SellerDesk | 118 | 93 % | 20 | 12 |
+| SellerDesk | 185 | 95 % | 29 | 14 |
 | ShopProbe | 40 | — | 23 витрина + 49 ShopProbe | 37: 25 проверок ShopProbe на фикстурах, 11 витрины, 1 мета-тест с посаженными дефектами |
 | OrderFlow | 91 | 97 % | 19 | 7 |
 
