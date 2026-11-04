@@ -2,8 +2,10 @@
 
 Код в этом репозитории написан в связке «я + Claude Code + Codex». Здесь лежит то,
 чем эта связка управляется: инструкции проекта, агенты, команды, skills, подключение
-Playwright MCP и правила ревью. Файлы рабочие: их можно положить в `.claude/` своего
-проекта и пользоваться.
+Playwright MCP и правила ревью. Файлы рабочие. Установка в свой проект: `agents/`,
+`commands/` и `skills/` скопировать в `.claude/`, `CLAUDE.md` — в корень,
+`settings.example.json` — в `.claude/settings.json`, хук — в `.claude/hooks/block-secrets.sh`
+(путь в настройках уже такой).
 
 ## Роли
 
@@ -50,8 +52,11 @@ flowchart LR
 - [**Пустой ответ ревьюера — не одобрение**](rules/empty-review-is-not-approval.md).
 - [**Отчёт агента — гипотеза, а не факт**](rules/agent-report-is-a-hypothesis.md):
   число попадает в отчёт только после моего замера.
-- **Секреты агенту не показываем:** deny-правила и хук на чтение `.env` и ключей
-  ([settings.example.json](settings.example.json), [hooks/block-secrets.sh](hooks/block-secrets.sh)).
+- **Секреты агенту не показываем.** Главное — секретов нет в рабочей копии агента. Поверх этого
+  deny-правила и хук на команды Bash ([settings.example.json](settings.example.json),
+  [hooks/block-secrets.sh](hooks/block-secrets.sh)). Хук ловит случайное чтение и типовые обходы
+  (`.e""nv`, маски, `cat .env.example .env`), но команду, собранную во время выполнения (base64,
+  переменные), не узнает. Тесты хука с этими случаями — в [hooks/tests](hooks/tests/block-secrets.test.sh).
 - **Короткий CLAUDE.md:** роутер на 30–60 строк, подробности в отдельных файлах по запросу.
   Чем короче постоянный контекст, тем меньше агент путается и тем дешевле сессия.
 
