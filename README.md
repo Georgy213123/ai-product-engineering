@@ -15,7 +15,7 @@
 | | Кейс | Задача | Что показывает | CI |
 |---|---|---|---|---|
 | 01 | [**SellerDesk**](https://github.com/Georgy213123/sellerdesk) | рабочее место оператора продавца на трёх маркетплейсах: чаты, отзывы, AI-черновики, шаблоны | интеграция с внешними API через адаптеры, фоновая синхронизация, идемпотентность, Claude API; автономный агент с чекпоинтом и бюджетом токенов | [![CI](https://github.com/Georgy213123/sellerdesk/actions/workflows/ci.yml/badge.svg)](https://github.com/Georgy213123/sellerdesk/actions/workflows/ci.yml) |
-| 02 | [**ShopProbe**](https://github.com/Georgy213123/shopprobe) | автоматическая приёмка интернет-витрины перед релизом | e2e и a11y на Playwright, перепроверка находок против ложных срабатываний, отчёт для владельца | [![CI](https://github.com/Georgy213123/shopprobe/actions/workflows/ci.yml/badge.svg)](https://github.com/Georgy213123/shopprobe/actions/workflows/ci.yml) |
+| 02 | [**ShopProbe**](https://github.com/Georgy213123/shopprobe) | автоматическая приёмка интернет-витрины перед релизом | e2e и a11y на Playwright, перепроверка находок против ложных срабатываний, отчёт для владельца; витрина на Next.js | [![CI](https://github.com/Georgy213123/shopprobe/actions/workflows/ci.yml/badge.svg)](https://github.com/Georgy213123/shopprobe/actions/workflows/ci.yml) |
 | 03 | [**OrderFlow**](https://github.com/Georgy213123/orderflow) | мастерская мебели на заказ: заявка → конструкция → смета | системный анализ (BPMN, use case, FR/NFR, user stories), расчёт в копейках, машина состояний | [![CI](https://github.com/Georgy213123/orderflow/actions/workflows/ci.yml/badge.svg)](https://github.com/Georgy213123/orderflow/actions/workflows/ci.yml) |
 
 <p>
@@ -24,7 +24,7 @@
   <a href="https://github.com/Georgy213123/orderflow"><img src="https://github.com/Georgy213123/orderflow/raw/main/docs/img/intake-sources-desktop.png" width="32%" alt="OrderFlow: заявка с источниками полей"></a>
 </p>
 
-Стек общий: Python 3.12, FastAPI, SQLAlchemy 2, PostgreSQL 16, React + TypeScript, Playwright,
+Стек общий: Python 3.12, FastAPI, SQLAlchemy 2, PostgreSQL 16, React + TypeScript (витрина ShopProbe — Next.js), Playwright,
 Docker Compose, GitHub Actions. Документация в кейсах по одному канону:
 постановка → анализ → проектирование → разработка с AI → тесты → баги → релизы
 ([CASE_STRUCTURE.md](docs/CASE_STRUCTURE.md)).
