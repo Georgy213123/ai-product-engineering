@@ -20,7 +20,7 @@ check 2 'cat ~/.ssh/id_ed25519'
 check 2 'cat ~/.ssh/id_ecdsa'
 check 2 'openssl x509 -in server.pem -text'
 check 2 'cat credentials.json'
-# Отказ: обходы, найденные внешним аудитом
+# Отказ: обходы, найденные повторным ревью
 check 2 'cat .env.example .env'
 check 2 'cat .e""nv'
 check 2 "cat .e''nv"
